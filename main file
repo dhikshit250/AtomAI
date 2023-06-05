@@ -1,0 +1,39 @@
+import speech_recognition as sr
+import pyttsx3
+import datetime
+import webbrowser
+import subprocess
+
+listener=sr.Recognizer()
+text_speech=pyttsx3.init()
+rate = text_speech.getProperty('rate')
+text_speech.setProperty('rate', 125)
+i=1
+dat=datetime.datetime.now()
+now=(dat.strftime("its"+ "%I %M %p "))
+try:
+        with sr.Microphone() as source:
+                print('listening...')
+                voice = listener.listen(source)
+                command = listener.recognize_google(voice)
+                if 'atom' in command:   
+                    if 'hai' in command:
+                        text_speech.say("Hello Bunny")
+                    elif 'open YouTube' in command:
+                        text_speech.say("ok. opening Youtube")
+                        webbrowser.open_new("https://www.youtube.com")
+                    elif 'open calculator' in command:
+                         text_speech.say("ok. opening calculator")
+                         subprocess.call('calc.exe')
+                    elif 'open Chrome' in command:
+                         text_speech.say("ok. opening chrome")
+                         subprocess.call('chrome.exe')
+                    elif 'assemble' in command:
+                        text_speech.say("Heroes aren't born They're built. Get ready for the show bunny. we are gonna rock.")
+                    elif 'what is the time now' in command:
+                        text_speech.say(now)
+                    elif 'atom' in command:
+                        text_speech.say("Yes bunny how can i help you")
+                    text_speech.runAndWait()
+except:
+      pass
